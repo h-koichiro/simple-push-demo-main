@@ -60,7 +60,7 @@ class AppController {
   registerServiceWorker() {
     // Check that service workers are supported
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("./service-worker.js").catch((err) => {
+      navigator.serviceWorker.register("/service-worker.js").catch((err) => {
         logger.error(err);
         this.showErrorMessage(
           "Unable to Register SW",
@@ -269,11 +269,7 @@ class AppController {
     fopts.body = JSON.stringify(requestInfo);
 
     try {
-      const response = await fetch(
-        "https://simple-push-demo-three.vercel.app/api/v3/sendpush",
-        fopts
-      );
-      // const response = await fetch(`${BACKEND_ORIGIN}/api/v3/sendpush`, fopts);
+      const response = await fetch(`${BACKEND_ORIGIN}/api/v3/sendpush`, fopts);
       if (response.status >= 400 && response.status < 500) {
         const text = await response.text();
         logger.error(
